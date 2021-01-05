@@ -21,7 +21,6 @@ import {
   Route,
   Switch,
   Redirect,
-  withRouter,
 } from "react-router-dom";
 import { checkAuth } from "./store/actions/auth";
 import { connect } from "react-redux";

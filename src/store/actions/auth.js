@@ -146,7 +146,6 @@ export const checkAuth = () => {
             type: actionTypes.AUTH_CHECK,
             isAuthenticated: false,
             username: null,
-            username: null,
           });
         });
     };
@@ -154,7 +153,6 @@ export const checkAuth = () => {
     return {
       type: actionTypes.AUTH_CHECK,
       isAuthenticated: false,
-      username: null,
       username: null,
     };
   }

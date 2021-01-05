@@ -87,9 +87,11 @@ export const verify = (token, email) => {
   return (dispatch) => {
     dispatch(pageLoader());
     axios
-      .get(
-        `${process.env.REACT_APP_SERVER_URL}/verify?token=${token}&email=${email}`
-      )
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth`, {
+        method: "VERIFY",
+        verificationToken: token,
+        email: email,
+      })
       .then((res) => {
         dispatch({
           type: actionTypes.AUTH_VERIFY,

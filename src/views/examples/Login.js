@@ -18,7 +18,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { signIn } from "../../store/actions/auth";
+import { setAlert, signIn } from "../../store/actions/auth";
 
 // reactstrap components
 import {
@@ -37,7 +37,6 @@ import {
   UncontrolledAlert,
 } from "reactstrap";
 
-
 class Login extends React.Component {
   state = {
     email: "",
@@ -50,6 +49,10 @@ class Login extends React.Component {
   };
 
   handleSubmit = (event) => {
+    if (!this.state.email || !this.state.password) {
+      this.props.setAlert("danger", "All fields are required", "LOGIN");
+      return;
+    }
     event.preventDefault();
     this.props.login(this.state.email, this.state.password);
   };
@@ -140,6 +143,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (email, password) => dispatch(signIn(email, password)),
+    setAlert: (alertType, alertMessage, alertFor) =>
+      dispatch(setAlert(alertType, alertMessage, alertFor)),
   };
 };
 

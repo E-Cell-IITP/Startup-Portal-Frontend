@@ -31,7 +31,7 @@ export const authLoginFailure = (state, action) => {
 export const authRegisterSuccess = (state, action) => {
   return {
     ...state,
-    isAuthenticated: true,
+    isAuthenticated: false,
     isAuthLoading: false,
     auth: {
       ...state.auth,

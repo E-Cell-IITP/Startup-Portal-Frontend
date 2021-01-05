@@ -37,6 +37,17 @@ const reducer = (state = initialState, action) => {
         },
       };
 
+    case actionTypes.SET_ALERT:
+      return {
+        ...state,
+        auth: {
+          ...state.auth,
+          alertType: action.alertType,
+          alertFor: action.alertFor,
+          alertMessage: action.alertMessage,
+        },
+      };
+
     case actionTypes.AUTH_CHECK:
       return auth.checkAuth(state, action);
 

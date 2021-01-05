@@ -9,6 +9,15 @@ const authLoader = () => {
   };
 };
 
+export const setAlert = (alertType, alertMessage, alertFor) => {
+  return {
+    type: actionTypes.SET_ALERT,
+    alertType: alertType,
+    alertMessage: alertMessage,
+    alertFor: alertFor,
+  };
+};
+
 export const signIn = (email, password) => {
   return (dispatch) => {
     dispatch(authLoader());
@@ -53,8 +62,7 @@ export const signUp = (username, email, rollNo, password) => {
         console.log("registerSuccessAction: ", res);
         dispatch({
           type: actionTypes.AUTH_REGISTER_SUCCESS,
-          alertMessage: "Logged in successfully",
-          username: res.data.user.username,
+          alertMessage: res.data.message,
         });
       })
       .catch((err) => {

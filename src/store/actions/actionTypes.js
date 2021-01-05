@@ -1,6 +1,8 @@
 export const PAGE_LOADER = "PAGE_LOADER";
 export const AUTH_LOADER = "AUTH_LOADER";
 
+export const SET_ALERT = "SET_ALERT";
+
 export const AUTH_CHECK = "AUTH_CHECK";
 
 export const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS";

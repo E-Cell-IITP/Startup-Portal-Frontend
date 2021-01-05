@@ -17,7 +17,7 @@
 */
 import React from "react";
 import { connect } from "react-redux";
-import { signUp } from "../../store/actions/auth";
+import { setAlert, signUp } from "../../store/actions/auth";
 
 // reactstrap components
 import {
@@ -56,6 +56,15 @@ class Register extends React.Component {
   };
 
   handleSubmit = async (event) => {
+    if (
+      !this.state.userName ||
+      !this.state.email ||
+      !this.state.rollNo ||
+      !this.state.password
+    ) {
+      this.props.setAlert("danger", "All fields are required", "REGISTER");
+      return;
+    }
     event.preventDefault();
     this.props.register(
       this.state.userName,
@@ -217,6 +226,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     register: (username, email, rollno, password) =>
       dispatch(signUp(username, email, rollno, password)),
+    setAlert: (alertType, alertMessage, alertFor) =>
+      dispatch(setAlert(alertType, alertMessage, alertFor)),
   };
 };
 

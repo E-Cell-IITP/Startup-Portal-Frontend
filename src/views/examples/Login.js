@@ -18,7 +18,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "../../store/actions";
+import { signIn } from "../../store/actions/auth";
 
 // reactstrap components
 import {
@@ -37,9 +37,6 @@ import {
   UncontrolledAlert,
 } from "reactstrap";
 
-// Backend Utils
-import axios from "axios";
-axios.defaults.withCredentials = true;
 
 class Login extends React.Component {
   state = {
@@ -142,7 +139,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (email, password) => dispatch(login(email, password)),
+    login: (email, password) => dispatch(signIn(email, password)),
   };
 };
 

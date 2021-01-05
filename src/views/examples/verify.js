@@ -24,10 +24,6 @@ import { verify } from "../../store/actions";
 import { Card, CardHeader, CardBody, Col, UncontrolledAlert } from "reactstrap";
 import Spinner from "../../components/Spinner";
 
-// Backend Utils
-import axios from "axios";
-axios.defaults.withCredentials = true;
-
 class Verify extends React.Component {
   handleChange = ({ target }) => {
     const { name, value } = target;

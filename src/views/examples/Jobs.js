@@ -43,10 +43,10 @@ class Jobs extends React.Component {
   state = {
     jobsList: [],
     columnDefs: [
-      { headerName: "Company", field: "company_name", minWidth: 200 },
+      { headerName: "Company", field: "companyName", minWidth: 200 },
       { headerName: "Package", field: "package" },
-      { headerName: "Job Role", field: "job_role" },
-      { headerName: "Job Type", field: "job_type" },
+      { headerName: "Job Role", field: "jobRole" },
+      { headerName: "Job Type", field: "jobType" },
       { headerName: "Status", field: "status" },
       { headerName: "Apply", cellRenderer: "applyCellRenderer" },
     ],
@@ -174,9 +174,7 @@ class Jobs extends React.Component {
                   </div>
                   <div className="modal-body">
                     <span className="h3">Company: </span>
-                    <span className="h4">
-                      {this.state.rowData.company_name}
-                    </span>
+                    <span className="h4">{this.state.rowData.companyName}</span>
                     <br />
 
                     <span className="h3">DESCIPTION: </span>
@@ -184,11 +182,11 @@ class Jobs extends React.Component {
                     <br />
 
                     <span className="h3">JOB ROLE: </span>
-                    <span className="h4">{this.state.rowData.job_role}</span>
+                    <span className="h4">{this.state.rowData.jobRole}</span>
                     <br />
 
                     <span className="h3">JOB TYPE: </span>
-                    <span className="h4">{this.state.rowData.job_type}</span>
+                    <span className="h4">{this.state.rowData.jobType}</span>
                     <br />
 
                     <span className="h3">PACKAGE: </span>

@@ -18,7 +18,7 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { userType } from "../store/actions";
+import { checkAuth } from "../store/actions/auth";
 
 // reactstrap components
 import { Container, Row, Col, Spinner } from "reactstrap";
@@ -118,7 +118,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkAuth: () => dispatch(userType()),
+    checkAuth: () => dispatch(checkAuth()),
   };
 };
 

@@ -17,7 +17,7 @@
 */
 import React from "react";
 import { connect } from "react-redux";
-import { register } from "../../store/actions";
+import { signUp } from "../../store/actions/auth";
 
 // reactstrap components
 import {
@@ -216,7 +216,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     register: (username, email, rollno, password) =>
-      dispatch(register(username, email, rollno, password)),
+      dispatch(signUp(username, email, rollno, password)),
   };
 };
 

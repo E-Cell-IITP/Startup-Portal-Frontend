@@ -1,6 +1,8 @@
 import * as actionTypes from "./actionTypes";
 import { pageLoader } from "./actions";
 import axios from "axios";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export const getProfileSuccess = (response) => {
   delete response.data["user"];
@@ -21,14 +23,26 @@ export const getProfileFailure = (error) => {
 };
 
 export const getProfile = () => {
+  const authToken = cookies.get("session_token");
   return (dispatch) => {
     dispatch(pageLoader());
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/profile`)
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/api/profile`,
+        {
+          method: "GET_MY_PROFILE",
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + authToken,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getProfileSuccess(res));
       })
       .catch((err) => {
+        console.log("GetProfileFailure: ", err);
         dispatch(getProfileFailure(err));
       });
   };
@@ -52,10 +66,22 @@ export const updateProfileFailure = (error) => {
 };
 
 export const updateProfile = (data) => {
+  const authToken = cookies.get("session_token");
   return (dispatch) => {
     dispatch(pageLoader());
     axios
-      .put(`${process.env.REACT_APP_SERVER_URL}/profile/edit`, data)
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/api/profile`,
+        {
+          method: "UPDATE_PROFILE",
+          ...data,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + authToken,
+          },
+        }
+      )
       .then((res) => {
         dispatch(updateProfileSuccess(res));
       })

@@ -16,8 +16,14 @@
 
 */
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Redirect, withRouter } from "react-router-dom";
-import { userType } from "./store/actions";
+import {
+  BrowserRouter,
+  Route,
+  Switch,
+  Redirect,
+  withRouter,
+} from "react-router-dom";
+import { checkAuth } from "./store/actions/auth";
 import { connect } from "react-redux";
 import Spinner from "./components/Spinner";
 import "./assets/css/Spinner.css";
@@ -70,7 +76,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkAuth: () => dispatch(userType()),
+    checkAuth: () => dispatch(checkAuth()),
   };
 };
 

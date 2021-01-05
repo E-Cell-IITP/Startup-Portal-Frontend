@@ -1,6 +1,8 @@
 import * as actionTypes from "./actionTypes";
 import { pageLoader } from "./actions";
 import axios from "axios";
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export const getJobsSuccess = (response) => {
   return {
@@ -20,14 +22,26 @@ export const getJobsFailure = (error) => {
 };
 
 export const getJobs = () => {
+  const authToken = cookies.get("session_token");
   return (dispatch) => {
     dispatch(pageLoader());
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/job`)
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/api/jobs`,
+        {
+          method: "ALL",
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + authToken,
+          },
+        }
+      )
       .then((res) => {
         dispatch(getJobsSuccess(res));
       })
       .catch((err) => {
+        console.log("GetJobsFailure: ", err);
         dispatch(getJobsFailure(err));
       });
   };
@@ -50,10 +64,22 @@ export const applyJobFailure = (error) => {
 };
 
 export const applyJob = (jobId) => {
+  const authToken = cookies.get("session_token");
   return (dispatch) => {
     dispatch(pageLoader());
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/applyJob/${jobId}`)
+      .post(
+        `${process.env.REACT_APP_SERVER_URL}/api/apply`,
+        {
+          method: "APPLY_BY_ID",
+          jobId: jobId,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + authToken,
+          },
+        }
+      )
       .then((res) => {
         dispatch(applyJobSuccess(res));
       })

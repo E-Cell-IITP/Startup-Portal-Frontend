@@ -1,6 +1,7 @@
 import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import { pageLoader } from "./actions";
+import Cookies from "universal-cookie";
 
 const authLoader = () => {
   return {
@@ -8,73 +9,41 @@ const authLoader = () => {
   };
 };
 
-export const authSuccess = (response, method) => {
-  let data = {
-    type: actionTypes.AUTH_SUCCESS,
-  };
-  console.log("authSuccess: ", response.data.user.username);
-  switch (method) {
-    case "REGISTER":
-      data.alertMessage =
-        "Account successfully registered. Check your mail for verification.";
-      data.alertFor = "REGISTER";
-      break;
-    case "LOGIN":
-      data.alertMessage = "Logged in successfully";
-      data.alertFor = "LOGIN";
-      data.username = response.data.user.username;
-      break;
-    default:
-      data.alertMessage = "";
-      data.alertFor = "";
-      break;
-  }
-  return data;
-};
-
-export const authFailure = (error, method) => {
-  let alertFor = null;
-  switch (method) {
-    case "REGISTER":
-      alertFor = "REGISTER";
-      break;
-    case "LOGIN":
-      alertFor = "LOGIN";
-      break;
-    default:
-      alertFor = "";
-      break;
-  }
-  return {
-    type: actionTypes.AUTH_FAILURE,
-    error: error,
-    alertFor: alertFor,
-  };
-};
-
-export const login = (email, password) => {
+export const signIn = (email, password) => {
   return (dispatch) => {
     dispatch(authLoader());
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/login`, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth`, {
+        method: "SIGNIN",
         email: email,
         password: password,
       })
       .then((res) => {
-        dispatch(authSuccess(res, "LOGIN"));
+        const cookies = new Cookies();
+        cookies.set("session_token", res.data.accessToken, { path: "/" });
+        dispatch({
+          type: actionTypes.AUTH_LOGIN_SUCCESS,
+          alertMessage: "Logged in successfully",
+          username: res.data.username,
+          email: res.data.email,
+        });
         dispatch(checkAuthTimeout(3600000));
       })
       .catch((err) => {
-        dispatch(authFailure(err, "LOGIN"));
+        dispatch({
+          type: actionTypes.AUTH_LOGIN_FAILURE,
+          alertMessage: err.response.data.message,
+        });
       });
   };
 };
 
-export const register = (username, email, rollno, password) => {
+export const signUp = (username, email, rollno, password) => {
   return (dispatch) => {
     dispatch(authLoader());
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/signup`, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth`, {
+        method: "SIGNUP",
         username: username,
         email: email,
         rollno: rollno,
@@ -82,45 +51,35 @@ export const register = (username, email, rollno, password) => {
       })
       .then((res) => {
         console.log("registerSuccessAction: ", res);
-        dispatch(authSuccess(res, "REGISTER"));
+        dispatch({
+          type: actionTypes.AUTH_REGISTER_SUCCESS,
+          alertMessage: "Logged in successfully",
+          username: res.data.user.username,
+        });
       })
       .catch((err) => {
         console.log("registerFailureAction: ", err);
-        dispatch(authFailure(err, "REGISTER"));
-      });
-  };
-};
-
-export const logout = () => {
-  return (dispatch) => {
-    dispatch(pageLoader());
-    axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/logout`)
-      .then((res) => {
         dispatch({
-          type: actionTypes.AUTH_LOGOUT_SUCCESS,
-        });
-      })
-      .catch((err) => {
-        dispatch({
-          type: actionTypes.AUTH_LOGOUT_FAILURE,
+          type: actionTypes.AUTH_REGISTER_FAILURE,
+          alertMessage: err.response.data.message,
         });
       });
   };
 };
 
-export const checkAuthTimeout = (expirationTime) => {
+export const signOut = () => {
+  const cookies = new Cookies();
+  const authToken = cookies.get("session_token");
+  cookies.remove("session_token", { path: "/" });
   return (dispatch) => {
-    setTimeout(() => {
-      dispatch(logout());
-    }, expirationTime);
-  };
-};
-
-export const authVerify = (response) => {
-  return {
-    type: actionTypes.AUTH_VERIFY,
-    message: response.data.message,
+    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/auth`, {
+      headers: {
+        Authorization: "Bearer " + authToken,
+      },
+    });
+    dispatch({
+      type: actionTypes.AUTH_LOGOUT,
+    });
   };
 };
 
@@ -132,10 +91,69 @@ export const verify = (token, email) => {
         `${process.env.REACT_APP_SERVER_URL}/verify?token=${token}&email=${email}`
       )
       .then((res) => {
-        dispatch(authVerify(res));
+        dispatch({
+          type: actionTypes.AUTH_VERIFY,
+          message: res.data.message,
+        });
       })
       .catch((err) => {
-        dispatch(authVerify(err.response));
+        dispatch({
+          type: actionTypes.AUTH_VERIFY,
+          message: err.response.data.message,
+        });
       });
   };
+};
+
+export const checkAuthTimeout = (expirationTime) => {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(signOut());
+    }, expirationTime);
+  };
+};
+
+export const checkAuth = () => {
+  const cookies = new Cookies();
+  const authToken = cookies.get("session_token");
+  if (authToken) {
+    return (dispatch) => {
+      axios
+        .post(
+          `${process.env.REACT_APP_SERVER_URL}/api/auth`,
+          {
+            method: "CHECKAUTH",
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + authToken,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("checkAuthActionResponse: ", res.data);
+          dispatch({
+            type: actionTypes.AUTH_CHECK,
+            isAuthenticated: true,
+            username: res.data.username,
+            email: res.data.email,
+          });
+        })
+        .catch((err) => {
+          dispatch({
+            type: actionTypes.AUTH_CHECK,
+            isAuthenticated: false,
+            username: null,
+            username: null,
+          });
+        });
+    };
+  } else {
+    return {
+      type: actionTypes.AUTH_CHECK,
+      isAuthenticated: false,
+      username: null,
+      username: null,
+    };
+  }
 };

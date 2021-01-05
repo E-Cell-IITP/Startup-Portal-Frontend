@@ -55,8 +55,8 @@ class Profile extends React.Component {
   getProfile = () => {
     this.setState({
       profile: {
-        first_name: this.props.profile.first_name || "",
-        last_name: this.props.profile.last_name || "",
+        firstName: this.props.profile.firstName || "",
+        lastName: this.props.profile.lastName || "",
         about: this.props.profile.about || "",
         branch: this.props.profile.branch || "",
         contact: this.props.profile.contact || "",
@@ -79,6 +79,7 @@ class Profile extends React.Component {
   };
 
   render() {
+    console.log("Profile: ", this.state.profile);
     if (!this.props.isAuthenticated) {
       return <Redirect to="/auth/login" />;
     }
@@ -141,9 +142,9 @@ class Profile extends React.Component {
                   </Row>
                   <div className="text-center">
                     <h3 onChange={this.handleState}>
-                      {this.state.profile.first_name +
+                      {this.state.profile.firstName +
                         " " +
-                        this.state.profile.last_name}
+                        this.state.profile.lastName}
                     </h3>
                     {/* <div className="h5 font-weight-300">
                       <i className="ni location_pin mr-2" />
@@ -215,12 +216,12 @@ class Profile extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              value={this.state.profile.first_name || ""}
+                              value={this.state.profile.firstName || ""}
                               onChange={this.handleState}
                               id="input-first-name"
                               placeholder="First name"
                               type="text"
-                              name="first_name"
+                              name="firstName"
                             />
                           </FormGroup>
                         </Col>
@@ -234,12 +235,12 @@ class Profile extends React.Component {
                             </label>
                             <Input
                               className="form-control-alternative"
-                              value={this.state.profile.last_name || ""}
+                              value={this.state.profile.lastName || ""}
                               onChange={this.handleState}
                               id="input-last-name"
                               placeholder="Last name"
                               type="text"
-                              name="last_name"
+                              name="lastName"
                             />
                           </FormGroup>
                         </Col>
@@ -283,10 +284,9 @@ class Profile extends React.Component {
                               className="form-control-alternative"
                               id="input-email"
                               placeholder="jesse@example.com"
-                              type="email"
                               name="email"
-                              value={this.state.profile.email || ""}
-                              onChange={this.handleState}
+                              value={this.props.email || ""}
+                              readOnly={true}
                             />
                           </FormGroup>
                         </Col>
@@ -350,6 +350,7 @@ const mapStateToProps = (state) => {
     profile: state.profile,
     isAuthenticated: state.isAuthenticated,
     username: state.auth.username,
+    email: state.auth.email,
   };
 };
 

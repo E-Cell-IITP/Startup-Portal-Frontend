@@ -18,7 +18,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "../../store/actions";
+import { signOut } from "../../store/actions/auth";
 // reactstrap components
 import {
   DropdownMenu,
@@ -95,7 +95,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout: () => dispatch(logout()),
+    logout: () => dispatch(signOut()),
   };
 };
 

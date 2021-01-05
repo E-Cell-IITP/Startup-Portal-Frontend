@@ -13,6 +13,7 @@ const initialState = {
     alertType: null,
     alertMessage: null,
     username: null,
+    email: null,
   },
   profile: {},
   jobsList: null,
@@ -36,37 +37,23 @@ const reducer = (state = initialState, action) => {
         },
       };
 
-    case actionTypes.USER_TYPE_SUCCESS:
-      return {
-        ...state,
-        isAuthenticated: true,
-        isPageLoading: false,
-        isAuthFetched: true,
-        auth: {
-          ...state.auth,
-          username: action.username,
-        },
-      };
+    case actionTypes.AUTH_CHECK:
+      return auth.checkAuth(state, action);
 
-    case actionTypes.USER_TYPE_FAILURE:
-      return {
-        ...state,
-        isAuthenticated: false,
-        isPageLoading: false,
-        isAuthFetched: true,
-      };
+    case actionTypes.AUTH_LOGIN_SUCCESS:
+      return auth.authLoginSuccess(state, action);
 
-    case actionTypes.AUTH_SUCCESS:
-      return auth.authSuccess(state, action);
+    case actionTypes.AUTH_LOGIN_FAILURE:
+      return auth.authLoginFailure(state, action);
 
-    case actionTypes.AUTH_FAILURE:
-      return auth.authFailure(state, action);
+    case actionTypes.AUTH_REGISTER_SUCCESS:
+      return auth.authRegisterSuccess(state, action);
 
-    case actionTypes.AUTH_LOGOUT_SUCCESS:
-      return auth.authLogoutSuccess(state, action);
+    case actionTypes.AUTH_REGISTER_FAILURE:
+      return auth.authRegisterFailure(state, action);
 
-    case actionTypes.AUTH_LOGOUT_FAILURE:
-      return auth.authLogoutFailure(state, action);
+    case actionTypes.AUTH_LOGOUT:
+      return auth.authLogout(state, action);
 
     case actionTypes.AUTH_VERIFY:
       return auth.authVerify(state, action);

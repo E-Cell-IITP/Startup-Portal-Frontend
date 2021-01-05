@@ -1,4 +1,4 @@
-export const authSuccess = (state, action) => {
+export const authLoginSuccess = (state, action) => {
   return {
     ...state,
     isAuthenticated: true,
@@ -7,13 +7,14 @@ export const authSuccess = (state, action) => {
       ...state.auth,
       alertType: "success",
       alertMessage: action.alertMessage,
-      alertFor: action.alertFor,
+      alertFor: "LOGIN",
       username: action.username,
+      email: action.email,
     },
   };
 };
 
-export const authFailure = (state, action) => {
+export const authLoginFailure = (state, action) => {
   return {
     ...state,
     isAuthenticated: false,
@@ -21,13 +22,42 @@ export const authFailure = (state, action) => {
     auth: {
       ...state.auth,
       alertType: "danger",
-      alertMessage: action.error.response.data.message,
-      alertFor: action.alertFor,
+      alertMessage: action.alertMessage,
+      alertFor: "LOGIN",
     },
   };
 };
 
-export const authLogoutSuccess = (state, action) => {
+export const authRegisterSuccess = (state, action) => {
+  return {
+    ...state,
+    isAuthenticated: true,
+    isAuthLoading: false,
+    auth: {
+      ...state.auth,
+      alertType: "success",
+      alertMessage: action.alertMessage,
+      alertFor: "REGISTER",
+      username: action.username,
+    },
+  };
+};
+
+export const authRegisterFailure = (state, action) => {
+  return {
+    ...state,
+    isAuthenticated: false,
+    isAuthLoading: false,
+    auth: {
+      ...state.auth,
+      alertType: "danger",
+      alertMessage: action.alertMessage,
+      alertFor: "REGISTER",
+    },
+  };
+};
+
+export const authLogout = (state, action) => {
   return {
     ...state,
     isAuthenticated: false,
@@ -38,13 +68,6 @@ export const authLogoutSuccess = (state, action) => {
       alertMessage: "Logged out Succesfully",
       alertFor: "LOGIN",
     },
-  };
-};
-
-export const authLogoutFailure = (state, action) => {
-  return {
-    ...state,
-    isPageLoading: false,
   };
 };
 
@@ -59,4 +82,19 @@ export const authVerify = (state, action) => {
       alertMessage: action.message,
     },
   };
+};
+
+export const checkAuth = (state, action) => {
+  let newState = {
+    ...state,
+    isPageLoading: false,
+    isAuthFetched: true,
+    isAuthenticated: action.isAuthenticated,
+    auth: {
+      ...state.auth,
+      username: action.username,
+      email: action.email,
+    },
+  };
+  return newState;
 };

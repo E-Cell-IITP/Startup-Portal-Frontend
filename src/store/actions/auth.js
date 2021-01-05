@@ -38,7 +38,7 @@ export const signIn = (email, password) => {
   };
 };
 
-export const signUp = (username, email, rollno, password) => {
+export const signUp = (username, email, rollNo, password) => {
   return (dispatch) => {
     dispatch(authLoader());
     axios
@@ -46,7 +46,7 @@ export const signUp = (username, email, rollno, password) => {
         method: "SIGNUP",
         username: username,
         email: email,
-        rollno: rollno,
+        rollNo: rollNo,
         password: password,
       })
       .then((res) => {

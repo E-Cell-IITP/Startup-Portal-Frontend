@@ -28,8 +28,8 @@ import { connect } from "react-redux";
 import Spinner from "./components/Spinner";
 import "./assets/css/Spinner.css";
 
-import AdminLayout from "layouts/Admin.js";
-import AuthLayout from "layouts/Auth.js";
+import AdminLayout from "./layouts/Admin.js";
+import AuthLayout from "./layouts/Auth.js";
 
 class App extends Component {
   componentDidMount() {

@@ -22,9 +22,9 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import App from "./App";
 
-import "assets/plugins/nucleo/css/nucleo.css";
+import "./assets/plugins/nucleo/css/nucleo.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import "assets/scss/argon-dashboard-react.scss";
+import "./assets/scss/argon-dashboard-react.scss";
 import reducer from "./store/reducers/reducer";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

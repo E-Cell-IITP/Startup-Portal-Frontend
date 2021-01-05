@@ -15,12 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
-import Jobs from "views/examples/Jobs.js";
-import Login from "views/examples/Login.js";
-import Register from "views/examples/Register.js";
-import Verify from "views/examples/verify.js";
+import Index from "./views/Index.js";
+import Profile from "./views/examples/Profile.js";
+import Jobs from "./views/examples/Jobs.js";
+import Login from "./views/examples/Login.js";
+import Register from "./views/examples/Register.js";
+import Verify from "./views/examples/verify.js";
 
 var routes = [
   {

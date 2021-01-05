@@ -25,7 +25,7 @@ import {
   UncontrolledAlert,
 } from "reactstrap";
 import Spinner from "../../components/Spinner";
-import Header from "components/Headers/Header.js";
+import Header from "../../components/Headers/Header.js";
 import { getJobs, applyJob } from "../../store/actions";
 import { connect } from "react-redux";
 import { AgGridReact } from "ag-grid-react";

@@ -42,7 +42,7 @@ class AdminNavbar extends React.Component {
             <NavbarBrand to="/" tag={Link}>
               <img
                 alt="..."
-                src={require("assets/img/brand/argon-react-white.png")}
+                src={require("../../assets/img/brand/argon-react-white.png")}
               />
             </NavbarBrand>
             <button className="navbar-toggler" id="navbar-collapse-main">
@@ -55,7 +55,7 @@ class AdminNavbar extends React.Component {
                     <Link to="/">
                       <img
                         alt="..."
-                        src={require("assets/img/brand/argon-react.png")}
+                        src={require("../../assets/img/brand/argon-react.png")}
                       />
                     </Link>
                   </Col>

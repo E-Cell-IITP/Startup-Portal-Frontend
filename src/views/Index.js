@@ -18,7 +18,7 @@
 import React from "react";
 // node.js library that concatenates classes (strings)
 
-import Header from "components/Headers/Header.js";
+import Header from "../components/Headers/Header.js";
 
 class Index extends React.Component {
   render() {

@@ -24,10 +24,10 @@ import { checkAuth } from "../store/actions/auth";
 import { Container, Row, Col, Spinner } from "reactstrap";
 
 // core components
-import AuthNavbar from "components/Navbars/AuthNavbar.js";
-import Footer from "components/Footers/AuthFooter.js";
+import AuthNavbar from "../components/Navbars/AuthNavbar.js";
+import Footer from "../components/Footers/AuthFooter.js";
 
-import routes from "routes.js";
+import routes from "../routes";
 
 class Auth extends React.Component {
   componentDidMount() {

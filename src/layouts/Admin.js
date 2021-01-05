@@ -21,11 +21,11 @@ import { Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
-import Footer from "components/Footers/AdminFooter.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
+import AdminNavbar from "../components/Navbars/AdminNavbar.js";
+import Footer from "../components/Footers/AdminFooter.js";
+import Sidebar from "../components/Sidebar/Sidebar.js";
 
-import routes from "routes.js";
+import routes from "../routes";
 
 class Admin extends React.Component {
   componentDidUpdate(e) {
@@ -78,7 +78,7 @@ class Admin extends React.Component {
           routes={this.getOnlyAdminRoutes()}
           logo={{
             innerLink: "/admin/index",
-            imgSrc: require("assets/img/brand/argon-react.png"),
+            imgSrc: require("../assets/img/brand/argon-react.png"),
             imgAlt: "...",
           }}
         />

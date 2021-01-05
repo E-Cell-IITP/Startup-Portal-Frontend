@@ -35,7 +35,7 @@ import {
 } from "reactstrap";
 import Spinner from "../../components/Spinner";
 // core components
-import UserHeader from "components/Headers/UserHeader.js";
+import UserHeader from "../../components/Headers/UserHeader.js";
 
 class Profile extends React.Component {
   state = { profile: {} };
@@ -102,7 +102,7 @@ class Profile extends React.Component {
                         <img
                           alt="..."
                           className="rounded-circle"
-                          src={require("assets/img/theme/team-4-800x800.jpg")}
+                          src={require("../../assets/img/theme/team-4-800x800.jpg")}
                         />
                       </a>
                     </div>

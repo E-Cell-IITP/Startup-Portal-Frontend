@@ -57,7 +57,7 @@ export const applyJobFailure = (error) => {
   let data = {
     type: actionTypes.APPLY_JOB_FAILURE,
   };
-  if (Math.floor(error.response.status / 100) === 4) {
+  if (error.response.status === 403 || error.response.status === 401) {
     data.isAuthenticated = false;
   }
   return data;

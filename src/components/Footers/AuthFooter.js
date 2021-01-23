@@ -30,10 +30,10 @@ class Login extends React.Component {
             <Row className="align-items-center justify-content-xl-between">
               <Col xl="6">
                 <div className="copyright text-center text-xl-left text-muted">
-                  © 2020{" "}
+                  © 2021{" "}
                   <a
                     className="font-weight-bold ml-1"
-                    href="https://www.creative-tim.com?ref=adr-auth-footer"
+                    href="https://ecell-iitp.github.io/"
                     target="_blank"
                   >
                     E-Cell | IIT Patna
@@ -42,17 +42,10 @@ class Login extends React.Component {
               </Col>
               <Col xl="6">
                 <Nav className="nav-footer justify-content-center justify-content-xl-end">
+                  <NavItem>Tech & Dev Committee</NavItem>
                   <NavItem>
                     <NavLink
-                      href="https://www.creative-tim.com?ref=adr-auth-footer"
-                      target="_blank"
-                    >
-                      Tech & Dev Committee
-                    </NavLink>
-                  </NavItem>
-                  <NavItem>
-                    <NavLink
-                      href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md?ref=adr-auth-footer"
+                      href="https://github.com/ecell-iitp/Startup-Portal-Frontend/blob/main/LICENSE"
                       target="_blank"
                     >
                       MIT License

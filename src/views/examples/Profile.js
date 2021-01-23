@@ -61,6 +61,7 @@ class Profile extends React.Component {
         branch: this.props.profile.branch || "",
         contact: this.props.profile.contact || "",
         email: this.props.profile.email || "",
+        resumeUrl: this.props.profile.resumeUrl || "",
       },
     });
   };
@@ -306,6 +307,25 @@ class Profile extends React.Component {
                               placeholder="Home Address"
                               type="text"
                               name="contact"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col md="12">
+                          <FormGroup>
+                            <label
+                              className="form-control-label"
+                              htmlFor="input-address"
+                            >
+                              Link to Resume
+                            </label>
+                            <Input
+                              className="form-control-alternative"
+                              value={this.state.profile.resumeUrl || ""}
+                              onChange={this.handleState}
+                              id="input-address"
+                              placeholder="https://www.google.com/"
+                              type="url"
+                              name="resumeUrl"
                             />
                           </FormGroup>
                         </Col>

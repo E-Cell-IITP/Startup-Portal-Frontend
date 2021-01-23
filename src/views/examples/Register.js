@@ -46,12 +46,21 @@ class Register extends React.Component {
     password: "",
     alertType: "",
     alertMessage: "",
+    showPassword: false,
+    icon: "ni ni-check-bold",
   };
 
   handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
+    });
+  };
+
+  toggleViewPassword = () => {
+    this.setState({
+      showPassword: !this.state.showPassword,
+      icon: this.state.showPassword ? "ni ni-check-bold" : "ni ni-glasses-2",
     });
   };
 
@@ -72,38 +81,6 @@ class Register extends React.Component {
       this.state.rollNo,
       this.state.password
     );
-    // if (
-    //   this.state.userName.length === 0 ||
-    //   this.state.password.length === 0 ||
-    //   this.state.email.length === 0 ||
-    //   this.state.rollNo.length === 0
-    // ) {
-    //   this.setState({
-    //     alertType: "danger",
-    //     alertMessage: "Below Fields are Mandatory",
-    //   });
-    //   return;
-    // }
-    // await axios
-    //   .post(`${process.env.REACT_APP_SERVER_URL}/signup`, {
-    //     username: this.state.userName,
-    //     email: this.state.email,
-    //     rollno: this.state.rollNo,
-    //     password: this.state.password,
-    //   })
-    //   .then((response) => {
-    //     this.setState({
-    //       alertType: "success",
-    //       alertMessage: response.data.message,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     this.setState({
-    //       alertType: "danger",
-    //       alertMessage:
-    //         error.response.data.message || "Check your Internet connection.",
-    //     });
-    //   });
   };
 
   render() {
@@ -185,12 +162,17 @@ class Register extends React.Component {
                     </InputGroupAddon>
                     <Input
                       placeholder="Password"
-                      type="password"
+                      type={this.state.showPassword ? "text" : "password"}
                       autoComplete="new-password"
                       name="password"
                       value={this.state.password}
                       onChange={this.handleChange}
                     />
+                    <InputGroupAddon addonType="append">
+                    <Button onClick={this.toggleViewPassword}>
+                      <i className={this.state.icon} />
+                    </Button>
+                  </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
                 <PasswordStrengthBar password={this.state.password} />

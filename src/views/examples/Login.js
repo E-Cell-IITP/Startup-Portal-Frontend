@@ -41,11 +41,20 @@ class Login extends React.Component {
   state = {
     email: "",
     password: "",
+    showPassword: false,
+    icon: "ni ni-check-bold",
   };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value });
+  };
+
+  toggleViewPassword = () => {
+    this.setState({
+      showPassword: !this.state.showPassword,
+      icon: this.state.showPassword ? "ni ni-check-bold" : "ni ni-glasses-2",
+    });
   };
 
   handleSubmit = (event) => {
@@ -58,6 +67,7 @@ class Login extends React.Component {
   };
 
   render() {
+    console.log(this.state);
     if (this.props.isAuthenticated) {
       return <Redirect to="/admin/jobs" />;
     }
@@ -104,12 +114,17 @@ class Login extends React.Component {
                   </InputGroupAddon>
                   <Input
                     placeholder="Password"
-                    type="password"
+                    type={this.state.showPassword ? "text" : "password"}
                     autoComplete="new-password"
                     name="password"
                     onChange={this.handleChange}
                     required
                   />
+                  <InputGroupAddon addonType="append">
+                    <Button onClick={this.toggleViewPassword}>
+                      <i className={this.state.icon} />
+                    </Button>
+                  </InputGroupAddon>
                 </InputGroup>
               </FormGroup>
               <div className="text-center">

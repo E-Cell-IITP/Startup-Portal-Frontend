@@ -33,10 +33,18 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { Redirect } from "react-router-dom";
 
-class ApplyCellRenderer extends React.Component {
-  render() {
-    return <Button color="primary">Apply</Button>;
-  }
+function ApplyCellRenderer(columnData) {
+  console.log({
+    columnData: columnData,
+    isApplied: columnData.data.isApplied,
+  });
+  return columnData.data.isApplied ? (
+    <Button color="primary" disabled>
+      Applied
+    </Button>
+  ) : (
+    <Button color="primary">Apply</Button>
+  );
 }
 
 class Jobs extends React.Component {
@@ -64,9 +72,10 @@ class Jobs extends React.Component {
     alertType: "",
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     if (this.props.jobsList == null) {
-      this.props.getJobsList();
+      await this.props.getJobsList();
+      console.log(this.props.jobsList);
     }
   }
 

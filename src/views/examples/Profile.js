@@ -354,11 +354,26 @@ class Profile extends React.Component {
                               </Col>
                               <Col sm="2">
                                 <Button
-                                  href={this.props.profile.resumeUrl}
-                                  target="_blank"
-                                  color="success"
+                                  color={
+                                    this.props.profile.resumeUrl
+                                      ? "success"
+                                      : "danger"
+                                  }
+                                  disabled={
+                                    this.props.profile.resumeUrl ? false : true
+                                  }
                                 >
-                                  Open in new Tab
+                                  {this.props.profile.resumeUrl ? (
+                                    <a
+                                      href={this.props.profile.resumeUrl}
+                                      target="_blank"
+                                      style={{ color: "#fff" }}
+                                    >
+                                      Open in new tab
+                                    </a>
+                                  ) : (
+                                    "No Resume"
+                                  )}
                                 </Button>
                               </Col>
                             </Row>

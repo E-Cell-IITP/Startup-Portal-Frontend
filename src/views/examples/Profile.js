@@ -15,8 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProfile, updateProfile } from "../../store/actions";
 // import { Document, Page, pdfjs } from "react-pdf";

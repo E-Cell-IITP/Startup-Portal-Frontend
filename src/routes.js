@@ -18,6 +18,7 @@
 import Index from "./views/Index.js";
 import Profile from "./views/examples/Profile.js";
 import Jobs from "./views/examples/Jobs.js";
+import Applications from "./views/examples/Applications.js";
 import Login from "./views/examples/Login.js";
 import Register from "./views/examples/Register.js";
 import Verify from "./views/examples/verify.js";
@@ -42,6 +43,13 @@ var routes = [
     name: "Job Posts",
     icon: "ni ni-bullet-list-67 text-red",
     component: Jobs,
+    layout: "/admin",
+  },
+  {
+    path: "/applications",
+    name: "Applications",
+    icon: "ni ni-bullet-list-67 text-red",
+    component: Applications,
     layout: "/admin",
   },
   {

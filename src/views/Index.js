@@ -27,6 +27,26 @@ class Index extends React.Component {
         <Header />
         {/* Page content */}
         <h1>E-Cell Startup-Portal HomePage</h1>
+        <h2>Some Content to serve as home-page</h2>
+        <h2>Do the impossible!</h2>
+        <p>
+          Entrepreneurship cell, IIT Patna is the organisation run by students
+          and has been established with the objective of creating, manifesting,
+          and guiding the entrepreneurial spirit in the student community and to
+          encourage them to be successful entrepreneurs.
+        </p>
+
+        <h2>Work flow in E-Cell</h2>
+        <p>
+          We shall strive to educate ourselves about the nuances involved in
+          entrepreneurship and business in order to prepare ourselves for
+          undertaking the journey from the genesis of an idea to its successful
+          business implementation. We shall work to create an environment that
+          would allow us to learn from each other and from the experiences of
+          people who have undertaken this journey in the past. To the end we
+          conduct several events and workshops both for students of and beyond
+          our college for the purpose of cultivating entrepreneur spirit.
+        </p>
       </>
     );
   }

@@ -26,37 +26,26 @@ import {
 } from "reactstrap";
 import Spinner from "../../components/Spinner";
 import Header from "../../components/Headers/Header.js";
-import { getJobs, applyJob } from "../../store/actions";
+import { getApplications } from "../../store/actions/applications";
 import { connect } from "react-redux";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { Redirect } from "react-router-dom";
 
-function ApplyCellRenderer(columnData) {
-  console.log({
-    columnData: columnData,
-    isApplied: columnData.data.isApplied,
-  });
-  return columnData.data.isApplied ? (
-    <Button color="primary" disabled>
-      Applied
-    </Button>
-  ) : (
-    <Button color="primary">Apply</Button>
-  );
-}
-
-class Jobs extends React.Component {
+class Applications extends React.Component {
   state = {
-    jobsList: [],
+    applicationsList: [],
     columnDefs: [
-      { headerName: "Company", field: "companyName", minWidth: 200 },
-      { headerName: "Package", field: "salaryPackage" },
-      { headerName: "Job Role", field: "jobRole" },
-      { headerName: "Job Type", field: "jobType" },
-      { headerName: "Status", field: "status" },
-      { headerName: "Apply", cellRenderer: "applyCellRenderer" },
+      {
+        headerName: "Company",
+        valueGetter: "data.Job.companyName",
+        minWidth: 200,
+      },
+      { headerName: "Package", valueGetter: "data.Job.salaryPackage" },
+      { headerName: "Job Role", valueGetter: "data.Job.jobRole" },
+      { headerName: "Job Type", valueGetter: "data.Job.jobType" },
+      { headerName: "Status", field: "Status" },
     ],
     defaultColDef: {
       sortable: true,
@@ -73,17 +62,12 @@ class Jobs extends React.Component {
   };
 
   async componentDidMount() {
-    if (this.props.jobsList == null) {
-      await this.props.getJobsList();
-      console.log(this.props.jobsList);
+    if (this.props.applicationsList == null) {
+      await this.props.getApplications();
     }
   }
 
   toggleModal = (event) => {
-    if (event.colDef && event.colDef.headerName === "Apply") {
-      this.toggleAlert(event);
-      return;
-    }
     if (!this.state.isModelOpen) {
       this.setState({
         rowData: event.data,
@@ -92,25 +76,6 @@ class Jobs extends React.Component {
     this.setState({
       isModelOpen: !this.state.isModelOpen,
     });
-  };
-
-  toggleAlert = (event) => {
-    if (event.data) {
-      this.setState({
-        jobId: event.data._id,
-      });
-    } else {
-      this.setState({
-        jobId: "",
-      });
-    }
-    this.setState({
-      isjobModalOpen: !this.state.isjobModalOpen,
-    });
-  };
-
-  applyJob = (event) => {
-    this.props.applyJob(this.state.jobId);
   };
 
   render() {
@@ -183,31 +148,55 @@ class Jobs extends React.Component {
                   </div>
                   <div className="modal-body">
                     <span className="h3">Company: </span>
-                    <span className="h4">{this.state.rowData.companyName}</span>
+                    <span className="h4">
+                      {this.state.rowData.Job
+                        ? this.state.rowData.Job.companyName
+                        : ""}
+                    </span>
                     <br />
 
                     <span className="h3">DESCIPTION: </span>
-                    <span className="h4">{this.state.rowData.description}</span>
+                    <span className="h4">
+                      {this.state.rowData.Job
+                        ? this.state.rowData.Job.description
+                        : ""}
+                    </span>
                     <br />
 
                     <span className="h3">JOB ROLE: </span>
-                    <span className="h4">{this.state.rowData.jobRole}</span>
+                    <span className="h4">
+                      {this.state.rowData.Job
+                        ? this.state.rowData.Job.jobRole
+                        : ""}
+                    </span>
                     <br />
 
                     <span className="h3">JOB TYPE: </span>
-                    <span className="h4">{this.state.rowData.jobType}</span>
+                    <span className="h4">
+                      {this.state.rowData.Job
+                        ? this.state.rowData.Job.jobType
+                        : ""}
+                    </span>
                     <br />
 
                     <span className="h3">PACKAGE: </span>
-                    <span className="h4">{this.state.rowData.package}</span>
+                    <span className="h4">
+                      {this.state.rowData.Job
+                        ? this.state.rowData.Job.salaryPackage
+                        : ""}
+                    </span>
                     <br />
 
                     <span className="h3">SKILLS REQUIRED: </span>
-                    <span className="h4">{this.state.rowData.skills}</span>
+                    <span className="h4">
+                      {this.state.rowData.Job
+                        ? this.state.rowData.Job.skills
+                        : ""}
+                    </span>
                     <br />
 
                     <span className="h3">JOB STATUS: </span>
-                    <span className="h4">{this.state.rowData.status}</span>
+                    <span className="h4">{this.state.rowData.Status}</span>
                     <br />
                   </div>
                   <div className="modal-footer">
@@ -227,13 +216,10 @@ class Jobs extends React.Component {
                     defaultColDef={this.state.defaultColDef}
                     pagination={true}
                     // onGridReady={this.props.getJobsList}
-                    rowData={this.props.jobsList}
+                    rowData={this.props.applicationsList}
                     onCellClicked={this.toggleModal}
                     debug={true}
                     suppressCellSelection={true}
-                    frameworkComponents={{
-                      applyCellRenderer: ApplyCellRenderer,
-                    }}
                     rowHeight={50}
                   />
                   {this.displayJob}
@@ -250,16 +236,15 @@ class Jobs extends React.Component {
 const mapStateToProps = (state) => {
   return {
     isPageLoading: state.isPageLoading,
-    jobsList: state.jobsList,
+    applicationsList: state.applicationsList,
     isAuthenticated: state.isAuthenticated,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getJobsList: () => dispatch(getJobs()),
-    applyJob: (jobId) => dispatch(applyJob(jobId)),
+    getApplications: () => dispatch(getApplications()),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Jobs);
+export default connect(mapStateToProps, mapDispatchToProps)(Applications);

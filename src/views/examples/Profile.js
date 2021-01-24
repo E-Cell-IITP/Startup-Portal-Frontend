@@ -15,10 +15,11 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProfile, updateProfile } from "../../store/actions";
+// import { Document, Page, pdfjs } from "react-pdf";
 
 // reactstrap components
 import {
@@ -36,6 +37,22 @@ import {
 import Spinner from "../../components/Spinner";
 // core components
 import UserHeader from "../../components/Headers/UserHeader.js";
+
+// function Resume({ url }) {
+//   pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+//   const [numPages, setNumPages] = useState(null);
+//   const [pageNumber, setPageNumber] = useState(1);
+
+//   function onDocumentLoadSuccess({ numPages }) {
+//     setNumPages(numPages);
+//     setPageNumber(1);
+//   }
+//   return (
+//     <Document file={"https://cors-anywhere.herokuapp.com/" + url} onLoadSuccess={onDocumentLoadSuccess}>
+//       <Page pageNumber={pageNumber} />
+//     </Document>
+//   );
+// }
 
 class Profile extends React.Component {
   state = { profile: {} };
@@ -109,6 +126,11 @@ class Profile extends React.Component {
                     </div>
                   </Col>
                 </Row>
+                {/* <Row className="justify-content-center">
+                  <Col className="order-lg-2" lg="3">
+                    <Resume url={this.props.profile.resumeUrl} />
+                  </Col>
+                </Row> */}
                 <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                   <div className="d-flex justify-content-between">
                     {/* <Button
@@ -318,15 +340,28 @@ class Profile extends React.Component {
                             >
                               Link to Resume
                             </label>
-                            <Input
-                              className="form-control-alternative"
-                              value={this.state.profile.resumeUrl || ""}
-                              onChange={this.handleState}
-                              id="input-address"
-                              placeholder="https://www.google.com/"
-                              type="url"
-                              name="resumeUrl"
-                            />
+                            <Row>
+                              <Col sm="10">
+                                <Input
+                                  className="form-control-alternative"
+                                  value={this.state.profile.resumeUrl || ""}
+                                  onChange={this.handleState}
+                                  id="input-address"
+                                  placeholder="https://www.google.com/"
+                                  type="url"
+                                  name="resumeUrl"
+                                />
+                              </Col>
+                              <Col sm="2">
+                                <Button
+                                  href={this.props.profile.resumeUrl}
+                                  target="_blank"
+                                  color="success"
+                                >
+                                  Open in new Tab
+                                </Button>
+                              </Col>
+                            </Row>
                           </FormGroup>
                         </Col>
                       </Row>

@@ -2,6 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 import * as auth from "./auth";
 import * as profile from "./profile";
 import * as jobs from "./jobs";
+import * as applications from "./applications";
 
 const initialState = {
   isAuthFetched: false,
@@ -17,6 +18,7 @@ const initialState = {
   },
   profile: {},
   jobsList: null,
+  applicationsList: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -74,6 +76,12 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.GET_JOBS_FAILURE:
       return jobs.getJobsFailure(state, action);
+
+    case actionTypes.GET_APPLICATIONS_SUCCESS:
+      return applications.getApplicationsSuccess(state, action);
+
+    case actionTypes.GET_APPLICATIONS_FAILURE:
+      return applications.getApplicationsFailure(state, action);
 
     case actionTypes.APPLY_JOB_SUCCESS:
       return jobs.applyJobSuccess(state, action);

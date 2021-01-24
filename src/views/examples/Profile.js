@@ -368,6 +368,7 @@ class Profile extends React.Component {
                                       href={this.props.profile.resumeUrl}
                                       target="_blank"
                                       style={{ color: "#fff" }}
+                                      rel="noopener noreferrer"
                                     >
                                       Open in new tab
                                     </a>

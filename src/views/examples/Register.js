@@ -169,10 +169,10 @@ class Register extends React.Component {
                       onChange={this.handleChange}
                     />
                     <InputGroupAddon addonType="append">
-                    <Button onClick={this.toggleViewPassword}>
-                      <i className={this.state.icon} />
-                    </Button>
-                  </InputGroupAddon>
+                      <Button onClick={this.toggleViewPassword}>
+                        <i className={this.state.icon} />
+                      </Button>
+                    </InputGroupAddon>
                   </InputGroup>
                 </FormGroup>
                 <PasswordStrengthBar password={this.state.password} />

@@ -31,14 +31,14 @@ import {
   Nav,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 var ps;
 
 class Sidebar extends React.Component {
   state = {
-    collapseOpen: false
+    collapseOpen: false,
   };
   constructor(props) {
     super(props);
@@ -51,17 +51,17 @@ class Sidebar extends React.Component {
   // toggles collapse between opened and closed (true/false)
   toggleCollapse = () => {
     this.setState({
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     });
   };
   // closes the collapse
   closeCollapse = () => {
     this.setState({
-      collapseOpen: false
+      collapseOpen: false,
     });
   };
   // creates the links that appear in the left menu / Sidebar
-  createLinks = routes => {
+  createLinks = (routes) => {
     return routes.map((prop, key) => {
       return (
         <NavItem key={key}>
@@ -79,17 +79,17 @@ class Sidebar extends React.Component {
     });
   };
   render() {
-    const {routes, logo } = this.props;
+    const { routes, logo } = this.props;
     let navbarBrandProps;
     if (logo && logo.innerLink) {
       navbarBrandProps = {
         to: logo.innerLink,
-        tag: Link
+        tag: Link,
       };
     } else if (logo && logo.outterLink) {
       navbarBrandProps = {
         href: logo.outterLink,
-        target: "_blank"
+        target: "_blank",
       };
     }
     return (
@@ -159,7 +159,7 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.defaultProps = {
-  routes: [{}]
+  routes: [{}],
 };
 
 Sidebar.propTypes = {
@@ -175,8 +175,8 @@ Sidebar.propTypes = {
     // the image src of the logo
     imgSrc: PropTypes.string.isRequired,
     // the alt for the img
-    imgAlt: PropTypes.string.isRequired
-  })
+    imgAlt: PropTypes.string.isRequired,
+  }),
 };
 
 export default Sidebar;

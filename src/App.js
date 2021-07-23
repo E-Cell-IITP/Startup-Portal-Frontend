@@ -16,12 +16,7 @@
 
 */
 import React, { Component } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { checkAuth } from "./store/actions/auth";
 import { connect } from "react-redux";
 import Spinner from "./components/Spinner";

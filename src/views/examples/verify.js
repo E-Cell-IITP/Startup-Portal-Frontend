@@ -37,10 +37,10 @@ class Verify extends React.Component {
       this.props.match.params.email
     );
     if (
-      this.props.match.params.token && 
+      this.props.match.params.token &&
       this.props.match.params.email &&
-      (!this.props.alertMessage)
-      ) {
+      !this.props.alertMessage
+    ) {
       this.props.verify(
         this.props.match.params.token,
         this.props.match.params.email

@@ -35,6 +35,7 @@ import {
   Spinner,
   Col,
   UncontrolledAlert,
+  Modal,
 } from "reactstrap";
 
 class Login extends React.Component {
@@ -43,6 +44,7 @@ class Login extends React.Component {
     password: "",
     showPassword: false,
     icon: "ni ni-check-bold",
+    forgotPasswordModal: true,
   };
 
   handleChange = ({ target }) => {
@@ -66,8 +68,13 @@ class Login extends React.Component {
     this.props.login(this.state.email, this.state.password);
   };
 
+  toggleForgotPassword = (event) => {
+    this.setState({
+      forgotPasswordModal: !this.state.forgotPasswordModal,
+    });
+  };
+
   render() {
-    console.log(this.state);
     if (this.props.isAuthenticated) {
       return <Redirect to="/admin/jobs" />;
     }
@@ -75,6 +82,29 @@ class Login extends React.Component {
     return (
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
+          <Modal
+            isOpen={this.state.forgotPasswordModal}
+            toggle={this.toggleForgotPassword}
+          >
+            <div className="p-2">
+              <div className="modal-title" style={{ textAlign: "center" }}>
+                <h2 className="mt-4">Forgot Password?</h2>
+              </div>
+              <div>
+                <p className="m-2 text-center">
+                  Relax and try to remember your password!
+                </p>
+              </div>
+              <Button
+                color="secondary"
+                data-dismiss="modal"
+                type="button"
+                onClick={this.toggleForgotPassword}
+              >
+                CLOSE
+              </Button>
+            </div>
+          </Modal>
           <CardHeader className="bg-transparent pb-5">
             <div className="text-muted text-center mt-2 mb-3">
               <h2>Sign in</h2>
@@ -136,6 +166,10 @@ class Login extends React.Component {
                 >
                   Sign in
                 </Button>
+                <br />
+                <a href="#" onClick={this.toggleForgotPassword}>
+                  <small>Forgot Password?</small>
+                </a>
               </div>
             </Form>
           </CardBody>

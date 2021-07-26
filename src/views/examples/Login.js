@@ -44,7 +44,7 @@ class Login extends React.Component {
     password: "",
     showPassword: false,
     icon: "ni ni-check-bold",
-    forgotPasswordModal: true,
+    forgotPasswordModal: false,
   };
 
   handleChange = ({ target }) => {
@@ -166,10 +166,9 @@ class Login extends React.Component {
                 >
                   Sign in
                 </Button>
-                <br />
-                <a href="#" onClick={this.toggleForgotPassword}>
+                <Button onClick={this.toggleForgotPassword}>
                   <small>Forgot Password?</small>
-                </a>
+                </Button>
               </div>
             </Form>
           </CardBody>
